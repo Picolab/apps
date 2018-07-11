@@ -1,7 +1,7 @@
 # Picolabs Apps
 This is the repository where Picolabs acts as a 3rd party developer in the Manifold app development process. Our 3rd party server code will be written here.
 
-#Setup
+# Setup
 This section describes the one-time setup process that allows you to start the server.
 
 Before you start the server, you MUST have an instance of a mariaDB database running. Follow the first section of https://github.com/zappala/cs260-examples/tree/master/node-sql for detailed instructions on how to install mariaDB.
@@ -17,7 +17,7 @@ Our server makes a connection specifically to the "apps" database on our mariaDB
 
 You are all set up and ready to start the server!
 
-#Starting the server
+# Starting the server
 Run 'node server.js' to start the server. Make sure you have node installed first. You will be prompted for the password to connect to a mariaDB database. This is the password described in the setup process above.
 
 # Safe and Mine App
