@@ -15,10 +15,27 @@ Now, reenter the interactive command line prompt, but this time type 'mysql -u r
 
 Our server makes a connection specifically to the "apps" database on our mariaDB instance. To create this database, type 'create database apps;' in the interactive prompt line. Then 'quit;'.
 
+Now that the database exists, we need to create all the tables that will be used by the server. Globally install the knex tool described here: https://knexjs.org/#Migrations.
+
+Run 'DATABASE_PASSWORD="<your password>" knex migrate:latest'.
+
 You are all set up and ready to start the server!
 
 # Starting the server
 Run 'node server.js' to start the server. Make sure you have node installed first. You will be prompted for the password to connect to a mariaDB database. This is the password described in the setup process above.
+
+# Managing The Database
+As we build more applications, or modify existing ones, we may want to add or modify tables in our database. This is done using knex migrations. See https://knexjs.org/#Migrations for more information on what a migration is. The knexfile.js already exists.
+
+Adding a new table, column etc. to the database:
+
+Create a new migration with the command 'knex migrate:make <your migration name>'. Make sure you have knex globally installed as per the instructions at the site linked to above. This creates a new migration file where you can add tables or modify existing ones. See the knex docs for more information on how to do this.
+
+Finally, run 'DATABASE_PASSWORD="<your password>" knex migrate:latest' to run your new migration.
+
+'DATABASE_PASSWORD="<your password>" knex migrate:rollback' will reverse the last migration by calling the .down function defined in your migration.
+
+You can verify a tables existence in your database by logging into the interactive command line prompt, type 'use <your databasename>', then type 'DESCRIBE <tablename>;'.
 
 # Safe and Mine App
 POST '/safeandmine/api/tags'

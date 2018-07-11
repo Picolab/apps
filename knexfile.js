@@ -5,7 +5,7 @@ module.exports = {
     connection: {
       host : '127.0.0.1',
       user : 'root',
-      password : '', //is configured from the command line
+      password : process.env.DATABASE_PASSWORD || '', //When running node server.js, this is configured from the command line
       database : 'apps',
       charset: 'utf8'
     }
@@ -16,7 +16,7 @@ module.exports = {
     connection: {
       host : '127.0.0.1',
       user : 'root',
-      password : '', //is configured from the command line
+      password : process.env.DATABASE_PASSWORD || '', //When running node server.js, this is configured from the command line
       database : 'apps',
       charset: 'utf8'
     },
