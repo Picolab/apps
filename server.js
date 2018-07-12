@@ -44,7 +44,7 @@ prompt.get(schema, function (err, result) {
   //set up server
   app.post('/safeandmine/api/tags', (req, res) => {
     const { tagID, DID } = req.body;
-    if(!tagID && !DID){
+    if(!tagID || !DID){
       return res.status(400).send("Missing tagID or DID");
     }
     mysql('SafeAndMine').where('tagID', tagID).then((rows) => {
@@ -53,7 +53,6 @@ prompt.get(schema, function (err, result) {
         return res.status(400).send();//We don't want to provide information because we don't want attackers to know if they found a legitimate tag already registered.
       }else {
         mysql('SafeAndMine').insert({ tagID, DID }).then((result) => {
-          console.log("result", result);
           res.status(200).json({
             tagID,
             DID
@@ -68,7 +67,7 @@ prompt.get(schema, function (err, result) {
   app.get('/safeandmine/:tagID', (req, res) => {
     //check who owns the tag
     //redirect to Manifold
-    res.redirect('http://localhost:3000')
+    res.redirect('http://localhost:3000/#/picolabs/safeandmine/' + req.params.tagID)
   });
 
   app.listen(3001, () => console.log('Server listening on port 3001!'));
