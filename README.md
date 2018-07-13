@@ -26,6 +26,10 @@ Clone this repository and navigate to it in your terminal. npm install.
 
 Run 'DATABASE_PASSWORD="your password" knex migrate:latest'.
 
+This migration creates a new table in your apps database called SafeAndMine with two columns: tagID and DID.
+
+Re-enter the interactive command line prompt by typing 'mysql -u root -p'. Type 'use apps' and then 'describe SafeAndMine;' to verify that the newly created table exists.
+
 You are all set up and ready to start the server!
 
 # Starting the server
