@@ -9,8 +9,11 @@ Before you start the server, you MUST have an instance of a mariaDB database run
 After installing mariaDB you can start it with the following command: 'mysql.server start'. The command 'mysql.server stop' will stop the server. Turning off your computer will also stop the server.
 
 Once mariaDB is installed, go ahead and setup the database password. Type 'mysql -u root -p' in the command line. This will prompt you for a password, but installing mariaDB sets the root password to the empty string. Just hit enter. This will open up the interactive command line prompt for the database. Then type 'USE mysql' to enter the administrative database. Enter the following commands separately (substituting your chosen password for "New-Password"):
+
 'SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('New-Password');'
+
 'SET PASSWORD FOR 'root'@'localhost' = PASSWORD('New-Password');'
+
 Then type 'quit'.
 
 Now, reenter the interactive command line prompt, but this time type 'mysql -u root -p'. You will be prompted for a password. Enter the newly set password from above. Now you are ready to create the "apps" database.
