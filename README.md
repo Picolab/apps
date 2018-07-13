@@ -6,6 +6,8 @@ This section describes the one-time setup process that allows you to start the s
 
 Before you start the server, you MUST have an instance of a mariaDB database running. Follow the first section of https://github.com/zappala/cs260-examples/tree/master/node-sql for detailed instructions on how to install mariaDB.
 
+After installing mariaDB you can start it with the following command: 'mysql.server start'.
+
 Once mariaDB is installed, go ahead and setup the database password. Type 'mysql' in the command line. This will open up the interactive command line prompt for the database. Then type 'USE mysql' to enter the administrative database. Enter the following commands separately (substituting your chosen password for "New-Password"):
 'SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('New-Password');'
 'SET PASSWORD FOR 'root'@'localhost' = PASSWORD('New-Password');'
