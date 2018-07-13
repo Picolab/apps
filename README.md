@@ -18,7 +18,7 @@ Then type 'quit'.
 
 Now, reenter the interactive command line prompt, but this time type 'mysql -u root -p'. You will be prompted for a password. Enter the newly set password from above. Now you are ready to create the "apps" database.
 
-Our server makes a connection specifically to the "apps" database on our mariaDB instance. To create this database, type 'create database apps;' in the interactive prompt line. Then 'quit;'.
+Our server makes a connection specifically to the "apps" database on our mariaDB instance. To create this database, type 'create database apps;' in the interactive prompt line. You can verify that your database was created by entering the command: 'use apps'. Once verified, enter 'quit;'.
 
 Now that the database exists, we need to create all the tables that will be used by the server. Globally install the knex tool described here: https://knexjs.org/#Migrations.
 
