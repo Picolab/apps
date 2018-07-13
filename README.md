@@ -22,7 +22,9 @@ Our server makes a connection specifically to the "apps" database on our mariaDB
 
 Now that the database exists, we need to create all the tables that will be used by the server. Globally install the knex tool described here: https://knexjs.org/#Migrations.
 
-Run 'DATABASE_PASSWORD="<your password>" knex migrate:latest'.
+Clone this repository and navigate to it in your terminal. npm install.
+
+Run 'DATABASE_PASSWORD="your password" knex migrate:latest'.
 
 You are all set up and ready to start the server!
 
