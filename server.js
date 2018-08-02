@@ -26,8 +26,9 @@ let config = require('./knexfile')[env];
 
 //retrieve user imput for the databasePassword, THEN set up the server...
 prompt.get(schema, function (err, result) {
-
-  config.connection.password = result.databasePassword;
+  if(result.databasePassword) {
+    config.connection.password = result.databasePassword;
+  }//else the knexfile will default to the environment variable "DATABASE_PASSWORD"
 
   const mysql = knex(config);
 
