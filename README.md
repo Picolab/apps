@@ -20,7 +20,7 @@ Now, reenter the interactive command line prompt, but this time type 'mysql -u r
 
 Our server makes a connection specifically to the "apps" database on our mariaDB instance. To create this database, type 'create database apps;' in the interactive prompt line. You can verify that your database was created by entering the command: 'use apps'. Once verified, enter 'quit;'.
 
-Now that the database exists, we need to create all the tables that will be used by the server. Globally install the knex tool described here: https://knexjs.org/#Migrations.
+Now that the database exists, we need to create all the tables that will be used by the server. Globally install the knex tool described here: https://knexjs.org/#Migrations. Note that you may need to install node first.
 
 Clone this repository and navigate to it in your terminal. npm install.
 
