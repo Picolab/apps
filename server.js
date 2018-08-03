@@ -64,10 +64,29 @@ prompt.get(schema, function (err, result) {
     });
   });
 
+  const redirectUser = (res, tagID, DID) => {
+    let DIDParam = DID ? ('&DID=' + DID) : '';
+    if(tagID) {
+      res.redirect('http://localhost:3000/#/picolabs/safeandmine?tagID=' + tagID + DIDParam);
+    } else {
+      console.error("no tagID");
+      throw Error("Cannot redirect without a tagID!");
+    }
+  };
+
   app.get('/safeandmine/:tagID', (req, res) => {
+    const tagID = req.params.tagID;
+    if(!tagID) {
+      res.status(400).send("Missing tagID!");
+    }
     //check who owns the tag
-    //redirect to Manifold
-    res.redirect('http://localhost:3000/#/picolabs/safeandmine/' + req.params.tagID)
+    mysql('SafeAndMine').where('tagID', tagID).then((rows) => {
+      if(rows.length === 0) {
+        redirectUser(res, tagID);
+      }
+      const DID = rows[0].DID;
+      redirectUser(res, tagID, DID);
+    });
   });
 
   app.listen(3001, () => console.log('Server listening on port 3001!'));
