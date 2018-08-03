@@ -82,7 +82,10 @@ let setUpServer = function(password) {
       if(rows.length === 0) {
         redirectUser(res, tagID);
       }
-      const DID = rows[0].DID;
+      let DID;
+      if(rows[0]) {
+        DID = rows[0].DID;
+      }
       redirectUser(res, tagID, DID);
     });
   });
