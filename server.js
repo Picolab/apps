@@ -81,8 +81,8 @@ let setUpServer = function(password) {
     mysql('SafeAndMine').where('tagID', tagID).then((rows) => {
       if(rows.length === 0) {
         redirectUser(res, tagID);
+        return;
       }
-      console.log(rows);
       const DID = rows[0].DID;
       redirectUser(res, tagID, DID);
     });
