@@ -37,6 +37,10 @@ You are all set up and ready to start the server!
 # Starting the server
 Run 'node server.js' to start the server. Make sure you have node installed first. You will be prompted for the password to connect to a mariaDB database. This is the password described in the setup process above.
 
+Alternatively, you can provide the password as an environment variable with the command 'DATABASE_PASSWORD="<the password>" node server.js'. This allows the use case where someone needs to run the command with a tool like forever, where you are not given the opportunity for user input. 
+  
+When starting your server on an AWS EC2 instance, you may find it useful to automatically run the script anytime amazon decides to reboot your EC2 after maintenance. To do this, add the forever command into the /etc/rc.local file. As your instance is booting up after shutdown, it will run this script for you as the root user. Simply add the command 'DATABASE_PASSWORD="<your password>" forever start /home/ubuntu/apps/server.js'. Since this starts your forever instance as the root user, running the command 'forever list' will report no instances running. However, running 'sudo forever list' will report your instance as running, assuming all went well.
+
 # Managing The Database
 As we build more applications, or modify existing ones, we may want to add or modify tables in our database. This is done using knex migrations. See https://knexjs.org/#Migrations for more information on what a migration is. The knexfile.js already exists.
 
