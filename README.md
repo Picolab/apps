@@ -6,18 +6,31 @@ This section describes the one-time setup process that allows you to start the s
 
 Before you start the server, you MUST have an instance of a mariaDB database running. Follow the first section of https://github.com/zappala/cs260-examples/tree/master/node-sql for detailed instructions on how to install mariaDB.
 
-Once mariaDB is installed, go ahead and setup the database password. Type 'mysql' in the command line. This will open up the interactive command line prompt for the database. Then type 'USE mysql' to enter the administrative database. Enter the following commands separately (substituting your chosen password for "New-Password"):
+After installing mariaDB you can start it with the following command: 'mysql.server start'. The command 'mysql.server stop' will stop the server. Turning off your computer will also stop the server.
+
+Once mariaDB is installed, go ahead and setup the database password. Type 'mysql -u root -p' in the command line. This will prompt you for a password, but installing mariaDB sets the root password to the empty string. Just hit enter. This will open up the interactive command line prompt for the database. If you followed the instructions in the link above and installed mariadb on linux, then you may already have set a password and can ignore the next few sentences. Then type 'USE mysql' to enter the administrative database. Enter the following commands separately (substituting your chosen password for "New-Password"):
+
 'SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('New-Password');'
+
 'SET PASSWORD FOR 'root'@'localhost' = PASSWORD('New-Password');'
+
 Then type 'quit'.
 
 Now, reenter the interactive command line prompt, but this time type 'mysql -u root -p'. You will be prompted for a password. Enter the newly set password from above. Now you are ready to create the "apps" database.
 
-Our server makes a connection specifically to the "apps" database on our mariaDB instance. To create this database, type 'create database apps;' in the interactive prompt line. Then 'quit;'.
+Our server makes a connection specifically to the "apps" database on our mariaDB instance. To create this database, type 'create database apps;' in the interactive prompt line. You can verify that your database was created by entering the command: 'use apps'. Once verified, enter 'quit;'.
 
-Now that the database exists, we need to create all the tables that will be used by the server. Globally install the knex tool described here: https://knexjs.org/#Migrations.
+Now that the database exists, we need to create all the tables that will be used by the server. Globally install the knex tool described here: https://knexjs.org/#Migrations. Note that you may need to install node first.
 
-Run 'DATABASE_PASSWORD="<your password>" knex migrate:latest'.
+Clone this repository and navigate to it in your terminal. npm install.
+
+Run 'DATABASE_PASSWORD="your password" knex migrate:latest'.
+
+You may want to clear your history after this last command, as your password will be visible in plain text.
+
+This migration creates a new table in your apps database called SafeAndMine with two columns: tagID and DID.
+
+Re-enter the interactive command line prompt by typing 'mysql -u root -p'. Type 'use apps' and then 'describe SafeAndMine;' to verify that the newly created table exists.
 
 You are all set up and ready to start the server!
 
