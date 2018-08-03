@@ -24,11 +24,8 @@ const schema = {
 const env = process.env.NODE_ENV || 'development';
 let config = require('./knexfile')[env];
 
-//retrieve user imput for the databasePassword, THEN set up the server...
-prompt.get(schema, function (err, result) {
-  if(result.databasePassword) {
-    config.connection.password = result.databasePassword;
-  }//else the knexfile will default to the environment variable "DATABASE_PASSWORD"
+let setUpServer = function(password) {
+  config.connection.password = password;
 
   const mysql = knex(config);
 
@@ -91,4 +88,14 @@ prompt.get(schema, function (err, result) {
   });
 
   app.listen(3001, () => console.log('Server listening on port 3001!'));
-});
+};
+
+//if password defined in environment variable, use that, else prompt the user for a password
+if(process.env.DATABASE_PASSWORD) {
+  setUpServer(process.env.DATABASE_PASSWORD);
+}else{
+  //retrieve user imput for the databasePassword, THEN set up the server...
+  prompt.get(schema, function (err, result) {
+    setUpServer(result.databasePassword);
+  });
+}
