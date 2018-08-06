@@ -79,6 +79,7 @@ let setUpServer = function(password) {
     }
     //check who owns the tag
     mysql('SafeAndMine').where('tagID', tagID).then((rows) => {
+      res.status(200).send("Successful scan! Redirecting.");
       if(rows.length === 0) {
         redirectUser(res, tagID);
         return;
