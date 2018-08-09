@@ -65,7 +65,7 @@ let setUpServer = function(password) {
   const redirectUser = (res, tagID, DID) => {
     let DIDParam = DID ? ('&DID=' + DID) : '';
     if(tagID) {
-      res.redirect('http://localhost:3000/#/picolabs/safeandmine?tagID=' + tagID + DIDParam);
+      res.redirect('https://manifold.picolabs.io/#/picolabs/safeandmine?tagID=' + tagID + DIDParam);
     } else {
       console.error("no tagID");
       throw Error("Cannot redirect without a tagID!");
