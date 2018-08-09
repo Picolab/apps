@@ -72,6 +72,10 @@ let setUpServer = function(password) {
     }
   };
 
+  app.get('/:tagID', (req, res) => {
+    res.redirect('https://apps.picolabs.io/safeandmine/' + req.params.tagID);
+  });
+
   app.get('/safeandmine/:tagID', (req, res) => {
     const tagID = req.params.tagID;
     if(!tagID) {
