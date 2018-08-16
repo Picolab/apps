@@ -86,6 +86,19 @@ let setUpServer = function(password) {
   });
 
 
+  const redirectUser = (res, tagID, DID) => {
+    let DIDParam = DID ? ('&DID=' + DID) : '';
+    if(tagID) {
+      res.redirect('https://manifold.picolabs.io/#/picolabs/safeandmine?tagID=' + tagID + DIDParam);
+    } else {
+      console.error("no tagID");
+      throw Error("Cannot redirect without a tagID!");
+    }
+  };
+
+  app.get('/:tagID', (req, res) => {
+    res.redirect('https://apps.picolabs.io/safeandmine/' + req.params.tagID);
+  });
 
   app.get('/safeandmine/:tagID', (req, res) => {
     const tagID = req.params.tagID;
