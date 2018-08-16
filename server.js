@@ -24,10 +24,8 @@ const schema = {
 const env = process.env.NODE_ENV || 'development';
 let config = require('./knexfile')[env];
 
-//retrieve user imput for the databasePassword, THEN set up the server...
-prompt.get(schema, function (err, result) {
-
-  config.connection.password = result.databasePassword;
+let setUpServer = function(password) {
+  config.connection.password = password;
 
   const mysql = knex(config);
 
@@ -64,7 +62,7 @@ prompt.get(schema, function (err, result) {
     });
   });
 
-  //delete a tag
+
   app.post('/safeandmine/api/delete', (req, res) => {
     const { tagID } = req.body;
     console.log("delete tag called with tagID ", tagID);
@@ -88,11 +86,32 @@ prompt.get(schema, function (err, result) {
   });
 
 
+
   app.get('/safeandmine/:tagID', (req, res) => {
+    const tagID = req.params.tagID;
+    if(!tagID) {
+      res.status(400).send("Missing tagID!");
+    }
     //check who owns the tag
-    //redirect to Manifold
-    res.redirect('http://localhost:3000/#/picolabs/safeandmine/' + req.params.tagID)
+    mysql('SafeAndMine').where('tagID', tagID).then((rows) => {
+      if(rows.length === 0) {
+        redirectUser(res, tagID);
+        return;
+      }
+      const DID = rows[0].DID;
+      redirectUser(res, tagID, DID);
+    });
   });
 
   app.listen(3001, () => console.log('Server listening on port 3001!'));
-});
+};
+
+//if password defined in environment variable, use that, else prompt the user for a password
+if(process.env.DATABASE_PASSWORD) {
+  setUpServer(process.env.DATABASE_PASSWORD);
+}else{
+  //retrieve user imput for the databasePassword, THEN set up the server...
+  prompt.get(schema, function (err, result) {
+    setUpServer(result.databasePassword);
+  });
+}
