@@ -64,6 +64,30 @@ prompt.get(schema, function (err, result) {
     });
   });
 
+  //delete a tag
+  app.post('/safeandmine/api/delete', (req, res) => {
+    const { tagID } = req.body;
+    console.log("delete tag called with tagID ", tagID);
+    if(!tagID){
+      return res.status(400).send("Missing tagID");
+    }
+    mysql('SafeAndMine').where('tagID', tagID).then((rows) => {
+      if(rows.length < 1) {
+        console.error("tagID is not registered.", tagID);
+        return res.status(400).send();//We don't want to provide information because we don't want attackers to know if they found a legitimate tag already registered.
+      }else {
+        mysql('SafeAndMine').where('tagID', tagID).del().then((result) => {
+          res.status(200).json({
+            tagID
+          })
+        }).catch((e) => {
+          console.error(e);
+        });
+      }
+    });
+  });
+
+
   app.get('/safeandmine/:tagID', (req, res) => {
     //check who owns the tag
     //redirect to Manifold
